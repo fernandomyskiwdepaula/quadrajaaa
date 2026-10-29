@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quadra — QuadraJá</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tw-config.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-white">
+  <div id="site-header"></div>
+
+  <main id="conteudo" class="mx-auto max-w-7xl px-4 py-5 pb-28 lg:pb-10">
+    <div id="detail"></div>
+  </main>
+
+  <!-- Barra fixa de reserva (mobile) -->
+  <div id="mobile-bar" class="fixed inset-x-0 bottom-0 z-40 hidden items-center justify-between gap-3 border-t border-line bg-white p-3 shadow-[0_-4px_16px_rgba(0,0,0,.1)] lg:hidden"></div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" data-modal role="dialog" aria-modal="true" aria-label="Galeria de fotos" class="fixed inset-0 z-[95] hidden items-center justify-center bg-black/90 p-4">
+    <button type="button" data-close-modal class="absolute right-4 top-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20" aria-label="Fechar galeria"><i data-lucide="x" class="h-6 w-6"></i></button>
+    <button type="button" id="lb-prev" class="absolute left-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20" aria-label="Foto anterior"><i data-lucide="chevron-left" class="h-6 w-6"></i></button>
+    <figure class="max-h-full max-w-4xl text-center text-white">
+      <img id="lb-img" src="" alt="" class="max-h-[80vh] rounded-xl object-contain">
+      <figcaption id="lb-cap" class="mt-3 text-sm"></figcaption>
+    </figure>
+    <button type="button" id="lb-next" class="absolute right-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20" aria-label="Próxima foto"><i data-lucide="chevron-right" class="h-6 w-6"></i></button>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/detail.js"></script>
+</body>
+</html>

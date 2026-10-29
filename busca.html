@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quadras para alugar — QuadraJá</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tw-config.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-white">
+  <div id="site-header"></div>
+
+  <!-- Barra de busca compacta + chips de filtro rápido -->
+  <div class="sticky top-16 z-30 border-b border-line bg-white shadow-sm">
+    <div class="mx-auto max-w-7xl px-4 py-3">
+      <div id="compact-search"></div>
+      <div id="chips" class="no-scrollbar mt-3 flex items-center gap-2 overflow-x-auto pb-1" role="toolbar" aria-label="Filtros rápidos"></div>
+    </div>
+  </div>
+
+  <main id="conteudo" class="mx-auto max-w-7xl px-4 py-5">
+    <nav class="text-xs text-brand" aria-label="Você está em">
+      <ol class="flex items-center gap-2"><li><a class="hover:underline" href="index.html">Início</a></li><li aria-hidden="true" class="text-muted">›</li><li><a class="hover:underline" href="busca.html">Quadras</a></li><li aria-hidden="true" class="text-muted">›</li><li id="bc-city" class="text-ink" aria-current="page">Curitiba</li></ol>
+    </nav>
+
+    <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
+      <h1 id="results-title" class="text-xl sm:text-2xl" aria-live="polite">Quadras para alugar</h1>
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" id="btn-map" class="flex h-10 items-center gap-2 rounded-lg border border-ink px-3 text-sm font-semibold hover:bg-mist"><i data-lucide="map" class="h-4 w-4"></i>Abrir mapa</button>
+        <button type="button" id="btn-alert" class="flex h-10 items-center gap-2 rounded-lg border border-line px-3 text-sm font-semibold text-gray-600 hover:bg-mist"><i data-lucide="bell-plus" class="h-4 w-4"></i>Criar alerta</button>
+        <div class="flex h-10 items-center gap-2 rounded-lg border border-line px-3">
+          <i data-lucide="arrow-up-down" class="h-4 w-4" aria-hidden="true"></i>
+          <label for="sort" class="sr-only">Ordenar por</label>
+          <select id="sort" class="bg-transparent text-sm font-semibold outline-none">
+            <option value="relevance">Ordenar</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+            <option value="rating">Melhor avaliadas</option>
+            <option value="dist">Mais próximas</option>
+          </select>
+        </div>
+        <div class="flex overflow-hidden rounded-lg border border-line" role="group" aria-label="Modo de visualização">
+          <button type="button" id="view-grid" class="grid h-10 w-10 place-items-center" aria-label="Ver em grade" aria-pressed="true"><i data-lucide="layout-grid" class="h-4 w-4"></i></button>
+          <button type="button" id="view-list" class="grid h-10 w-10 place-items-center" aria-label="Ver em lista" aria-pressed="false"><i data-lucide="list" class="h-4 w-4"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 grid gap-6 lg:grid-cols-[300px_1fr]">
+      <div id="filters-backdrop" class="fixed inset-0 z-50 hidden bg-black/50 lg:hidden" aria-hidden="true"></div>
+
+      <!-- SIDEBAR / DRAWER DE FILTROS -->
+      <aside id="filters" class="lg:sticky lg:top-44 lg:max-h-[calc(100vh-12rem)] lg:self-start lg:overflow-y-auto lg:rounded-2xl lg:border lg:border-line" aria-label="Filtros" tabindex="-1">
+        <div class="flex items-center justify-between border-b border-line p-4">
+          <h2 class="flex items-center gap-2 text-lg"><i data-lucide="sliders-horizontal" class="h-5 w-5"></i>Filtros <span id="filters-count" class="text-sm font-medium text-muted"></span></h2>
+          <button type="button" id="filters-close" class="rounded-full p-2 hover:bg-mist lg:hidden" aria-label="Fechar filtros"><i data-lucide="x" class="h-5 w-5"></i></button>
+        </div>
+        <div id="filters-body" class="space-y-6 p-4"></div>
+        <div class="sticky bottom-0 flex gap-2 border-t border-line bg-white p-4">
+          <button type="button" id="filters-clear" class="h-11 flex-1 rounded-lg border border-line font-semibold hover:bg-mist">Limpar filtros</button>
+          <button type="button" id="filters-apply" class="h-11 flex-1 rounded-lg bg-brand font-bold text-white hover:bg-[#0856cc]">Aplicar</button>
+        </div>
+      </aside>
+
+      <!-- RESULTADOS -->
+      <section aria-label="Resultados">
+        <div id="results"></div>
+        <nav id="pagination" class="mt-8 flex flex-wrap items-center justify-center gap-2" aria-label="Paginação"></nav>
+      </section>
+    </div>
+  </main>
+
+  <!-- Botão flutuante de filtros (mobile) -->
+  <button type="button" id="fab-filters" class="fixed bottom-5 left-1/2 z-40 flex h-12 -translate-x-1/2 items-center gap-2 rounded-full bg-navy px-6 font-bold text-white shadow-xl lg:hidden"><i data-lucide="sliders-horizontal" class="h-5 w-5"></i>Filtros <span id="fab-count" class="rounded-full bg-gold px-2 text-xs text-navy"></span></button>
+
+  <!-- Modal de mapa -->
+  <div id="map-modal" data-modal role="dialog" aria-modal="true" aria-labelledby="map-title" class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/60 p-4">
+    <div class="flex h-[85vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+      <div class="flex items-center justify-between border-b border-line p-4">
+        <h2 id="map-title" class="text-lg">Mapa das quadras</h2>
+        <button type="button" data-close-modal class="rounded-full p-2 hover:bg-mist" aria-label="Fechar mapa"><i data-lucide="x" class="h-5 w-5"></i></button>
+      </div>
+      <div id="map-canvas" class="relative flex-1 overflow-hidden bg-[#DDE8F3]" style="background-image:linear-gradient(#cbd9ea 1px,transparent 1px),linear-gradient(90deg,#cbd9ea 1px,transparent 1px);background-size:48px 48px"></div>
+      <p class="border-t border-line p-3 text-xs text-muted">Mapa ilustrativo (placeholder estático). As posições dos pins são fictícias.</p>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

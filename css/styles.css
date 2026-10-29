@@ -1,0 +1,106 @@
+/* =========================================================
+   QuadraJá — estilos complementares ao Tailwind (CDN)
+   ========================================================= */
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: #111827; background: #fff; }
+h1, h2, h3, h4 { font-weight: 700; }
+.price { font-weight: 800; }
+
+/* Foco visível (acessibilidade) */
+:focus-visible { outline: 3px solid #0A6CFF; outline-offset: 2px; border-radius: 6px; }
+.on-dark :focus-visible, header :focus-visible { outline-color: #FFB700; }
+
+/* Hover com elevação leve */
+.card-hover { transition: box-shadow .2s ease, transform .2s ease; }
+.card-hover:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(11, 42, 91, .14); }
+
+/* ---------- Carrossel de imagens dos cards ---------- */
+.carousel { position: relative; overflow: hidden; width: 100%; height: 100%; background: #E5E7EB; }
+.carousel-track { display: flex; height: 100%; transition: transform .25s ease; }
+.carousel-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; }
+.carousel-btn {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 20;
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 9999px;
+  background: #fff; color: #111827; box-shadow: 0 2px 8px rgba(0,0,0,.25);
+  opacity: 0; transition: opacity .15s ease;
+}
+.carousel:hover .carousel-btn, .carousel:focus-within .carousel-btn { opacity: 1; }
+@media (hover: none) { .carousel-btn { opacity: .9; } }
+
+/* Favorito */
+.fav-btn { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 9999px; background: #fff; border: 1px solid #E5E7EB; color: #374151; transition: transform .15s ease; }
+.fav-btn:hover { transform: scale(1.08); }
+.fav-btn[aria-pressed="true"] { color: #E11D48; border-color: #FDA4AF; }
+.fav-btn[aria-pressed="true"] svg { fill: #E11D48; }
+
+/* ---------- Skeleton ---------- */
+.skeleton { background: linear-gradient(90deg, #ECEEF1 25%, #F7F8F9 37%, #ECEEF1 63%); background-size: 400% 100%; animation: sk 1.3s ease infinite; }
+@keyframes sk { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
+/* ---------- Slider duplo de preço ---------- */
+.dual { position: relative; height: 28px; }
+.dual .track { position: absolute; top: 12px; left: 0; right: 0; height: 4px; background: #E5E7EB; border-radius: 4px; }
+.dual .fill { position: absolute; top: 12px; height: 4px; background: #0A6CFF; border-radius: 4px; }
+.dual input[type=range] { position: absolute; left: 0; top: 0; width: 100%; height: 28px; margin: 0; background: none; pointer-events: none; -webkit-appearance: none; appearance: none; }
+.dual input[type=range]::-webkit-slider-runnable-track { background: transparent; }
+.dual input[type=range]::-moz-range-track { background: transparent; }
+.dual input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; pointer-events: auto; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid #0A6CFF; box-shadow: 0 1px 4px rgba(0,0,0,.3); cursor: pointer; }
+.dual input[type=range]::-moz-range-thumb { pointer-events: auto; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 2px solid #0A6CFF; box-shadow: 0 1px 4px rgba(0,0,0,.3); cursor: pointer; }
+
+/* ---------- Barra de busca (home e busca compacta) ---------- */
+.sb { display: flex; flex-direction: column; gap: .5rem; }
+.sb-field { display: flex; align-items: center; gap: .75rem; background: #fff; padding: .6rem 1rem; border: 2px solid #FFB700; border-radius: .75rem; min-width: 0; }
+.sb-field:focus-within { outline: 3px solid #0A6CFF; outline-offset: -3px; }
+.sb-body { min-width: 0; flex: 1; }
+.sb-label { display: block; font-size: .7rem; line-height: 1.1; color: #6B7280; margin-bottom: 2px; }
+.sb-input { width: 100%; border: 0; background: transparent; font: inherit; font-size: .95rem; font-weight: 500; color: #111827; padding: 0; outline: none; text-overflow: ellipsis; }
+.sb-btn { background: #0A6CFF; color: #fff; font-weight: 700; font-size: 1.1rem; padding: 0 2rem; min-height: 56px; border-radius: .75rem; transition: background .15s ease; }
+.sb-btn:hover { background: #0856cc; }
+.sb-step { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9999px; border: 1px solid #0A6CFF; color: #0A6CFF; font-weight: 700; line-height: 1; }
+.sb-step:hover { background: #EAF2FF; }
+@media (min-width: 768px) { .sb { display: grid; grid-template-columns: 1fr 1fr; } .sb-btn { grid-column: 1 / -1; } }
+@media (min-width: 1024px) {
+  .sb { display: flex; flex-direction: row; gap: 0; border: 4px solid #FFB700; border-radius: .9rem; background: #FFB700; overflow: hidden; }
+  .sb-field { border: 0; border-radius: 0; flex: 1 1 0; border-right: 1px solid #E5E7EB; }
+  .sb-field.sb-wide { flex: 1.4 1 0; }
+  .sb-btn { border-radius: 0; min-height: 60px; }
+}
+.sb--compact .sb-field { padding: .4rem .8rem; }
+.sb--compact .sb-btn { min-height: 44px; font-size: 1rem; padding: 0 1.4rem; }
+@media (min-width: 1024px) { .sb--compact { border-width: 3px; } .sb--compact .sb-btn { min-height: 48px; } }
+
+/* ---------- Filtros: drawer / bottom-sheet no mobile ---------- */
+@media (max-width: 1023px) {
+  #filters { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; max-height: 88vh; overflow-y: auto; transform: translateY(105%); transition: transform .25s ease; border-radius: 1.25rem 1.25rem 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,.25); background: #fff; }
+  #filters.open { transform: none; }
+}
+
+/* Chips */
+.chip { display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap; border: 1px solid #D1D5DB; background: #fff; color: #111827; border-radius: 9999px; padding: .5rem .9rem; font-size: .875rem; font-weight: 500; transition: background .15s, border-color .15s; }
+.chip:hover { background: #F4F6F8; }
+.chip[aria-pressed="true"], .chip.is-active { background: #EAF2FF; border-color: #0A6CFF; color: #0A5BD6; }
+
+/* Slots de horário */
+.slot { border-radius: .6rem; padding: .5rem 0; font-size: .875rem; font-weight: 600; text-align: center; border: 1px solid transparent; transition: background .15s; }
+.slot-free { background: #DCFCE7; color: #166534; border-color: #BBF7D0; }
+.slot-free:hover { background: #BBF7D0; }
+.slot-busy { background: #F3F4F6; color: #9CA3AF; text-decoration: line-through; cursor: not-allowed; }
+.slot-sel { background: #0A6CFF; color: #fff; }
+
+/* Accordion FAQ */
+.faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .2s ease; }
+.faq-panel > div { overflow: hidden; }
+.faq-item.open .faq-panel { grid-template-rows: 1fr; }
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-chevron { transition: transform .2s ease; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Toast */
+.toast { animation: toast-in .2s ease; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
