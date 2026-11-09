@@ -1,18 +1,19 @@
-/* Configuração do Tailwind CDN — carregar logo após o script do Tailwind */
+/* Configuração do Tailwind CDN — carregar logo após o script do Tailwind.
+   Paleta: preto, laranja e branco. */
 tailwind.config = {
   theme: {
     extend: {
       colors: {
-        navy: '#0B2A5B',
-        brand: '#0A6CFF',
-        sport: '#16A34A',
-        gold: '#FFB700',
-        mist: '#F4F6F8',
-        line: '#E5E7EB',
-        muted: '#6B7280',
-        ink: '#111827'
+        ink: '#000000',     // preto
+        fire: '#FF5C00',    // laranja quadra
+        ember: '#BF3F00',   // laranja escuro (texto sobre branco, contraste AA)
+        chalk: '#F2F2F2',   // branco-giz
+        ash: '#595959'      // cinza de apoio
       },
-      fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+      fontFamily: {
+        sans: ['Barlow', 'system-ui', 'sans-serif'],
+        display: ['"Big Shoulders Display"', 'Impact', 'sans-serif']
+      }
     }
   }
 };
